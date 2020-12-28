@@ -1,0 +1,53 @@
+{
+    "name": "flightsadmin/livewire-crud",
+    "description": "Scaffold Livewire Components, migrations, factory and crud in one command based on database tables",
+    "keywords": [
+        "flightsadmin",
+        "livewire-crud"
+    ],
+    "homepage": "https://github.com/flightsadmin/livewire-crud",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "George Chitechi",
+            "email": "george@flightsadmin.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "laravel/framework": "^6.0|^7.0|^8.0",
+        "laravel/ui": "^2.0|^3.0",
+        "livewire/livewire": "^2.0"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "Flightsadmin\\LivewireCrud\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Flightsadmin\\LivewireCrud\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Flightsadmin\\LivewireCrud\\LivewireCrudServiceProvider"
+            ],
+            "aliases": {
+                "LivewireCrud": "Flightsadmin\\LivewireCrud\\LivewireCrudFacade"
+            }
+        }
+    }
+}

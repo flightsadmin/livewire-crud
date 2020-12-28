@@ -1,0 +1,18 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\{{modelName}};
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+
+class {{modelName}}Factory extends Factory
+{
+    protected $model = {{modelName}}::class;
+
+    public function definition()
+    {
+        return [{{factory}}
+        ];
+    }
+}

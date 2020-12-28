@@ -1,0 +1,9 @@
+@import 'variables';
+
+@import '~bootstrap/scss/bootstrap';
+
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+@import '../css/app.css';
+
+@import '~sweetalert2/src/sweetalert2.scss';
