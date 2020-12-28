@@ -1,14 +1,12 @@
 # Livewire Crud Generator
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/flightsadmin/livewire-crud.svg?style=flat-square)](https://packagist.org/packages/flightsadmin/livewire-crud)
-[![Build Status](https://img.shields.io/travis/flightsadmin/livewire-crud/master.svg?style=flat-square)](https://travis-ci.org/flightsadmin/livewire-crud)
-[![Total Downloads](https://img.shields.io/packagist/dt/flightsadmin/livewire-crud.svg?style=flat-square)](https://packagist.org/packages/flightsadmin/livewire-crud)
 
 A livewire CRUD Generation package to help scaffold basic site files. Package is autoloaded as per PSR-4 autoloading in any laravel version `^5.6` so no extra config required. However is has been tested on version `^7 & ^8`. It uses ***auth*** middleware thus installs `laravel/ui` just incase you don't have any other auth mechanism, this does not mean you have to use `laravel/ui`.
 
 ## Installation
 
-You can install the package via composer:
+You can install the package via [Composer](https://getcomposer.org/):
 
 ```bash
 composer require flightsadmin/livewire-crud
@@ -26,6 +24,9 @@ php artisan crud:install
     * Compile css/js based on `bootstrap and fontawesome/free`.
     * Run `npm install && run dev`
     * Flush *node_modules* files from you folder.
+
+If you choose to scaffold authentication this command will run `php artisan ui:auth`
+to generate Auth scaffolds using `laravel/ui` package. You can skip this step if your app has authentication already.
 
 Then generate Crud by:
 
