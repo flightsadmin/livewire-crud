@@ -193,7 +193,7 @@ abstract class LivewireGeneratorCommand extends Command
      */
     protected function _getLivewirePath($name)
     {
-        return app_path($this->_getNamespacePath($this->livewireNamespace) . "{$name}Component.php");
+        return app_path($this->_getNamespacePath($this->livewireNamespace) . "{$name}s.php");
     }
 
     /**
