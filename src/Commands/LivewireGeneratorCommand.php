@@ -450,6 +450,20 @@ abstract class LivewireGeneratorCommand extends Command
 
             // CSV format
             return implode(',', $filterColumns);
+        };		
+		
+		$keyWord = function () {
+
+            /** @var array $filterColumns Exclude the unwanted columns */
+            $filterColumns = $this->getFilteredColumns();
+
+            // Add quotes to the unwanted columns for fillable
+            array_walk($filterColumns, function (&$value) {
+				$value = "\n\t\t\t\t\t\t->orWhere('" . $value . "', 'LIKE', \$keyWord)";
+            });
+
+            // CSV format
+            return implode('', $filterColumns);
         };	
 
 		$factoryfields = function () {
@@ -490,6 +504,7 @@ abstract class LivewireGeneratorCommand extends Command
             '{{addfields}}' => $addfields(),
             '{{factory}}' => $factoryfields(),
             '{{rules}}' => $rules(),
+            '{{search}}' => $keyWord(),
             '{{relations}}' => $relations,
             '{{properties}}' => $properties,
             '{{softDeletesNamespace}}' => $softDeletesNamespace,

@@ -11,13 +11,15 @@ class {{modelName}}Component extends Component
     use WithPagination;
 
 	protected $paginationTheme = 'bootstrap';
-    public $selected_id, {{updatefield}};
+    public $selected_id, $keyWord, {{updatefield}};
     public $updateMode = false;
 
     public function render()
     {
+		$keyWord = '%'.$this->keyWord .'%';
         return view('livewire.{{modelNamePluralLowerCase}}.view', [
-            '{{modelNamePluralLowerCase}}' => {{modelName}}::latest()->paginate(10),
+            '{{modelNamePluralLowerCase}}' => {{modelName}}::latest(){{search}}
+						->paginate(10),
         ]);
     }
 	
