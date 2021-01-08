@@ -18,8 +18,8 @@
     "require": {
         "php": "^7.3|^8.0",
         "laravel/framework": "^6.0|^7.0|^8.0",
-        "laravel/ui": "^2.0|^3.0",
-        "livewire/livewire": "^2.0"
+        "laravel/ui": "^2|^3",
+        "livewire/livewire": "^2"
     },
     "require-dev": {},
     "autoload": {
