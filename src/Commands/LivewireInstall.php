@@ -32,7 +32,7 @@ class LivewireInstall extends Command
 		$routeFile = base_path('routes/web.php');
 		$string = file_get_contents($routeFile);
         if (!str_contains($string, '//Route Hooks - Do not delete//')) {
-			file_put_contents($routeFile, "\nRoute::group(['middleware' => ['auth']], function () { \n\t\t//Route Hooks - Do not delete//\n\t});", FILE_APPEND | LOCK_EX);
+			file_put_contents($routeFile, "\n//Route Hooks - Do not delete//", FILE_APPEND);
 		}
         $deleteFiles = [
             'resources/sass',

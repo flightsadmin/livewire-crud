@@ -15,10 +15,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
     protected $argument;
     private $replaces = [];
 
-
-    protected $signature = 'crud:generate
-                            {name : Table name}
-                            {--route= : Custom route name}';
+    protected $signature = 'crud:generate {name : Table name}';
 
     protected $description = 'Generate Livewire Component and CRUD operations';
 
@@ -42,8 +39,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         $this->name = $this->_buildClassName();
 
         // Generate the crud
-           $this->buildOptions()
-				->buildModel()
+           $this->buildModel()
 				->buildViews();
 		
 		//Updating Routes
@@ -51,7 +47,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         $this->argument = $this->getNameInput();
         $routeFile = base_path('routes/web.php');
         $routeContents = $this->filesystem->get($routeFile);
-        $routeItemStub = "\t\tRoute::view('" . 	$this->getNameInput() . "', 'livewire." . $this->getNameInput() . ".index');";
+        $routeItemStub = "\tRoute::view('" . 	$this->getNameInput() . "', 'livewire." . $this->getNameInput() . ".index')->middleware('auth');";
 		$routeItemHook = '//Route Hooks - Do not delete//';
 
         if (!Str::contains($routeContents, $routeItemStub)) {
@@ -129,6 +125,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         $tableBody = "\n";
         $viewRows = "\n";
         $form = "\n";
+        $type = null;
 
         foreach ($this->getFilteredColumns() as $column) {
             $title = Str::title(str_replace('_', ' ', $column));
@@ -138,12 +135,32 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
             $form .= $this->getField($title, $column, 'form-field');
 			$form .= "\n";
         }
-
+		
+		foreach ($this->getColumns() as $values) {
+			$type = "text";
+            // if (Str::endsWith(($values->Type), ['timestamp', 'date', 'datetime'])) {
+                // $type = "date";
+            // } 
+			// elseif (Str::endsWith(($values->Type), 'int')) {
+				// $type = "number";
+			// }
+			// elseif (Str::startsWith(($values->Type), 'time')) {
+				// $type = "time";
+			// }
+			// elseif (Str::contains(($values->Type), 'text')) {
+				// $type = "textarea";
+			// }
+			// else{
+				// $type = "text";
+			// }
+		}
+		
         $replace = array_merge($this->buildReplacements(), [
             '{{tableHeader}}' => $tableHead,
             '{{tableBody}}' => $tableBody,
             '{{viewRows}}' => $viewRows,
             '{{form}}' => $form,
+            '{{type}}' => $type,
         ]);
 
         $this->buildLayout();

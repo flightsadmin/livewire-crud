@@ -358,7 +358,7 @@ abstract class LivewireGeneratorCommand extends Command
         return array_filter($columns, function ($value) use ($unwanted) {
             return !in_array($value, $unwanted);
         });
-    }
+    }   
 
     /**
      * Make model attributes/replacements.
@@ -520,22 +520,6 @@ abstract class LivewireGeneratorCommand extends Command
     protected function getNameInput()
     {
         return trim($this->argument('name'));
-    }
-
-    /**
-     * Build the options
-     *
-     * @return $this|array
-     */
-    protected function buildOptions()
-    {
-        $route = $this->option('route');
-
-        if (!empty($route)) {
-            $this->options['route'] = $route;
-        }
-
-        return $this;
     }
 
     /**
