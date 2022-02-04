@@ -85,7 +85,7 @@
     @livewireScripts
 <script type="text/javascript">
 	window.livewire.on('closeModal', () => {
-		$('#exampleModal').modal('hide');
+		$('#createDataModal').modal('hide');
 	});
 </script>
 </body>
