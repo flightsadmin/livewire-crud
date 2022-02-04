@@ -18,7 +18,7 @@
 						<div>
 							<input wire:model='keyWord' type="text" class="form-control" name="search" id="search" placeholder="Search {{modelTitle}}s">
 						</div>
-						<div class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">
+						<div class="btn btn-sm btn-info" data-toggle="modal" data-target="#createDataModal">
 						<i class="fa fa-plus"></i>  Add {{modelTitle}}s
 						</div>
 					</div>
