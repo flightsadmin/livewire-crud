@@ -5,9 +5,6 @@ namespace Flightsadmin\LivewireCrud;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-/**
- * Class ModelGenerator.
- */
 class ModelGenerator
 {
     private $functions = null;
@@ -18,10 +15,6 @@ class ModelGenerator
 
     /**
      * ModelGenerator constructor.
-     *
-     * @param string $table
-     * @param string $properties
-     * @param string $modelNamespace
      */
     public function __construct(string $table, string $properties, string $modelNamespace)
     {
@@ -33,8 +26,6 @@ class ModelGenerator
 
     /**
      * Get all the eloquent relations.
-     *
-     * @return array
      */
     public function getEloquentRelations()
     {
@@ -55,12 +46,6 @@ class ModelGenerator
         }
     }
 
-    /**
-     * @param $relation
-     * @param $tableKeys
-     *
-     * @return string
-     */
     private function _getEloquent($relation, $tableKeys)
     {
         $eloquent = '';
@@ -79,14 +64,6 @@ class ModelGenerator
         return $eloquent;
     }
 
-    /**
-     * @param string $relation
-     * @param string $table
-     * @param string $foreign_key
-     * @param string $local_key
-     *
-     * @return string
-     */
     private function _getFunction(string $relation, string $table, string $foreign_key, string $local_key)
     {
         list($model, $relationName) = $this->_getModelName($table, $relation);
@@ -114,11 +91,6 @@ class ModelGenerator
 
     /**
      * Get the name relation and model.
-     *
-     * @param $name
-     * @param $relation
-     *
-     * @return array
      */
     private function _getModelName($name, $relation)
     {
@@ -139,8 +111,6 @@ class ModelGenerator
 
     /**
      * Get all relations from Table.
-     *
-     * @return array
      */
     private function _getTableRelations()
     {
@@ -162,10 +132,6 @@ SQL;
 
     /**
      * Get all Keys from table.
-     *
-     * @param $table
-     *
-     * @return array
      */
     private function _getTableKeys($table)
     {
