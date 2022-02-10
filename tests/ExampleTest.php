@@ -13,7 +13,6 @@ class ExampleTest extends TestCase
         return [LivewireCrudServiceProvider::class];
     }
     
-    /** @test */
     public function true_is_true()
     {
         $this->assertTrue(true);
