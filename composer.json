@@ -11,14 +11,14 @@
     "authors": [
         {
             "name": "George Chitechi",
-            "email": "george@flightsadmin.com",
+            "email": "flightsapps@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^7.3|^8.0",
-        "laravel/framework": "^6.0|^7.0|^8.0|^9.0",
-        "laravel/ui": "^2|^3",
+        "php": "^7|^8",
+        "laravel/framework": "^6|^7|^8|^9",
+        "laravel/ui": "^2|^3|^4",
         "livewire/livewire": "^2"
     },
     "require-dev": {},
