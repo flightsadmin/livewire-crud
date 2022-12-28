@@ -6,3 +6,9 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+// Font Awesome Free
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+// Bootstrap Icons
+@import "bootstrap-icons/font/bootstrap-icons.css";
