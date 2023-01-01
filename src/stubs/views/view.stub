@@ -22,8 +22,7 @@
 				</div>
 				
 				<div class="card-body">
-						@include('livewire.{{modelNamePluralLowerCase}}.create')
-						@include('livewire.{{modelNamePluralLowerCase}}.update')
+						@include('livewire.{{modelNamePluralLowerCase}}.modals')
 				<div class="table-responsive">
 					<table class="table table-bordered table-sm">
 						<thead class="thead">
@@ -35,13 +34,12 @@
 							@foreach(${{modelNamePluralLowerCase}} as $row)
 							<tr>
 								<td>{{ $loop->iteration }}</td> {{tableBody}}								<td width="90">
-								
 									<div class="dropdown">
 										<a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 											Actions
 										</a>
 										<ul class="dropdown-menu">
-											<li><a data-bs-toggle="modal" data-bs-target="#updateModal" class="dropdown-item" wire:click="edit({{$row->id}})"><i class="fa fa-edit"></i> Edit </a></li>
+											<li><a data-bs-toggle="modal" data-bs-target="#updateDataModal" class="dropdown-item" wire:click="edit({{$row->id}})"><i class="fa fa-edit"></i> Edit </a></li>
 											<li><a class="dropdown-item" onclick="confirm('Confirm Delete {{modelTitle}} id {{$row->id}}? \nDeleted {{modelTitle}}s cannot be recovered!')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})"><i class="fa fa-trash"></i> Delete </a></li>  
 										</ul>
 									</div>								
@@ -49,7 +47,7 @@
 							@endforeach
 						</tbody>
 					</table>						
-					{{ ${{modelNamePluralLowerCase}}->links() }}
+					<div class="float-end">{{ ${{modelNamePluralLowerCase}}->links() }}</div>
 					</div>
 				</div>
 			</div>
