@@ -42,7 +42,7 @@ class {{modelName}}s extends Component
         ]);
         
         $this->resetInput();
-		$this->emit('closeModal');
+		$this->dispatchBrowserEvent('closeModal');
 		session()->flash('message', '{{modelName}} Successfully created.');
     }
 
@@ -67,6 +67,7 @@ class {{modelName}}s extends Component
 
             $this->resetInput();
             $this->updateMode = false;
+            $this->dispatchBrowserEvent('closeModal');
 			session()->flash('message', '{{modelName}} Successfully updated.');
         }
     }
@@ -74,8 +75,7 @@ class {{modelName}}s extends Component
     public function destroy($id)
     {
         if ($id) {
-            $record = {{modelName}}::where('id', $id);
-            $record->delete();
+            {{modelName}}::where('id', $id)->delete();
         }
     }
 }
