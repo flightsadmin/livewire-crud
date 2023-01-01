@@ -31,7 +31,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach(${{modelNamePluralLowerCase}} as $row)
+							@forelse(${{modelNamePluralLowerCase}} as $row)
 							<tr>
 								<td>{{ $loop->iteration }}</td> {{tableBody}}								<td width="90">
 									<div class="dropdown">
@@ -44,7 +44,12 @@
 										</ul>
 									</div>								
 								</td>
-							@endforeach
+							</tr>
+							@empty
+							<tr>
+								<td class="text-center" colspan="100%">No data Found </td>
+							</tr>
+							@endforelse
 						</tbody>
 					</table>						
 					<div class="float-end">{{ ${{modelNamePluralLowerCase}}->links() }}</div>
