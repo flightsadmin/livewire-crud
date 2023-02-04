@@ -55,10 +55,10 @@ class LivewireInstall extends Command
         $this->generateFiles();
 		
 		$this->line('');
-		$this->warn('Running: <info>npm install && npm run build</info> Please wait...');
+		$this->warn('Running: <info>npm install && npm run prod</info> Please wait...');
 		$this->line('');
 
-		exec('npm install && npm run build');
+		exec('npm install && npm run prod');
 
         $this->info('Installation Complete, few seconds please, let us optimize your site');
         $this->warn('');
