@@ -64,7 +64,7 @@ abstract class LivewireGeneratorCommand extends Command
      * Controller Namespace.
      * @var string
      */
-    protected $controllerNamespace = 'App\Http\Controllers';  
+    protected $controllerNamespace = 'App\Http\Controllers';
 	/**
      * Controller Namespace.
      * @var string
@@ -133,6 +133,7 @@ abstract class LivewireGeneratorCommand extends Command
      */
     protected function write($path, $content)
     {
+        $this->files->makeDirectory(dirname($path), 0755, true, true);
         $this->files->put($path, $content);
     }
 
@@ -181,11 +182,11 @@ abstract class LivewireGeneratorCommand extends Command
     protected function _getMigrationPath($name)
     {
         return base_path("database/migrations/". date('Y-m-d_His') ."_create_". Str::lower(Str::plural($name)) ."_table.php");
-    } 
+    }
     protected function _getFactoryPath($name)
     {
         return base_path("database/factories/{$name}Factory.php");
-    } 
+    }
 
 	/**
      * @param $name
@@ -337,7 +338,7 @@ abstract class LivewireGeneratorCommand extends Command
     protected function getColumns()
     {
         if (empty($this->tableColumns)) {
-            $this->tableColumns = DB::select('SHOW COLUMNS FROM ' . $this->table);
+            $this->tableColumns = DB::select('SHOW COLUMNS FROM `' . $this->table.'`');
         }
 
         return $this->tableColumns;
@@ -358,7 +359,7 @@ abstract class LivewireGeneratorCommand extends Command
         return array_filter($columns, function ($value) use ($unwanted) {
             return !in_array($value, $unwanted);
         });
-    }   
+    }
 
     /**
      * Make model attributes/replacements.
@@ -421,7 +422,7 @@ abstract class LivewireGeneratorCommand extends Command
 
             // CSV format
             return implode(', ', $filterColumns);
-        };      
+        };
 
 		$resetfields = function () {
 
@@ -436,8 +437,8 @@ abstract class LivewireGeneratorCommand extends Command
 
             // CSV format
             return implode('', $filterColumns);
-        };		
-		
+        };
+
 		$addfields = function () {
 
             /** @var array $filterColumns Exclude the unwanted columns */
@@ -450,8 +451,8 @@ abstract class LivewireGeneratorCommand extends Command
 
             // CSV format
             return implode(',', $filterColumns);
-        };		
-		
+        };
+
 		$keyWord = function () {
 
             /** @var array $filterColumns Exclude the unwanted columns */
@@ -464,7 +465,7 @@ abstract class LivewireGeneratorCommand extends Command
 
             // CSV format
             return implode('', $filterColumns);
-        };	
+        };
 
 		$factoryfields = function () {
 
@@ -479,7 +480,7 @@ abstract class LivewireGeneratorCommand extends Command
             // CSV format
             return implode('', $filterColumns);
         };
-		
+
 		$editfields = function () {
 
             /** @var array $filterColumns Exclude the unwanted columns */
