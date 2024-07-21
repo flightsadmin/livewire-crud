@@ -60,7 +60,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         $layoutFile = 'resources/views/layouts/app.blade.php';
         $layoutContents = $this->filesystem->get($layoutFile);
         $navItemStub = "\t\t\t\t\t\t<li class=\"nav-item\">
-                            <a href=\"{{ url('/".$this->getNameInput()."') }}\" class=\"nav-link\"><i class=\"fab fa-laravel text-info\"></i> ". ucfirst($this->getNameInput()) ."</a> 
+                            <a href=\"{{ url('/".$this->getNameInput()."') }}\" class=\"nav-link\"><i class=\"bi-house-fill text-info\"></i> ". ucfirst($this->getNameInput()) ."</a> 
                         </li>";
         $navItemHook = '<!--Nav Bar Hooks - Do not delete!!-->';
 
