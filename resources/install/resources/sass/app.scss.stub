@@ -5,6 +5,6 @@
 @import '~bootstrap/scss/bootstrap';
 
 // Bootstrap Icons
-@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import '~bootstrap-icons/font/bootstrap-icons.css';
 
 @import '../css/app.css';
