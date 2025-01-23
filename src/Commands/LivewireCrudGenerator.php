@@ -2,8 +2,10 @@
 
 namespace Flightsadmin\LivewireCrud\Commands;
 
+use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Illuminate\Filesystem\Filesystem;
+use File;
 
 class LivewireCrudGenerator extends LivewireGeneratorCommand
 {
@@ -17,6 +19,11 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
 
     protected $description = 'Generate Livewire Component and CRUD operations';
 
+    /**
+     * Execute the console command.
+     * @return bool|null
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
     public function handle()
     {
         $this->table = $this->getNameInput();
@@ -53,7 +60,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         $layoutFile = 'resources/views/layouts/app.blade.php';
         $layoutContents = $this->filesystem->get($layoutFile);
         $navItemStub = "\t\t\t\t\t\t<li class=\"nav-item\">
-                            <a href=\"{{ url('/".$this->getNameInput()."') }}\" class=\"nav-link\"><i class=\"bi-house text-info\"></i> ". ucfirst($this->getNameInput()) ."</a> 
+                            <a href=\"{{ url('/".$this->getNameInput()."') }}\" class=\"nav-link\"><i class=\"bi-house-fill text-info\"></i> ". ucfirst($this->getNameInput()) ."</a> 
                         </li>";
         $navItemHook = '<!--Nav Bar Hooks - Do not delete!!-->';
 
@@ -69,6 +76,10 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         return true;
     }
 
+    /**
+     * @return $this
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
     protected function buildModel()
     {
         $modelPath = $this->_getModelPath($this->name);
@@ -101,6 +112,11 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
         return $this;
     }
 
+    /**
+     * @return $this
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws \Exception
+     */
     protected function buildViews()
     {
         $this->warn('Creating:<info> Views ...</info>');
@@ -122,6 +138,21 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
 		
 		foreach ($this->getColumns() as $values) {
 			$type = "text";
+            // if (Str::endsWith(($values->Type), ['timestamp', 'date', 'datetime'])) {
+                // $type = "date";
+            // } 
+			// elseif (Str::endsWith(($values->Type), 'int')) {
+				// $type = "number";
+			// }
+			// elseif (Str::startsWith(($values->Type), 'time')) {
+				// $type = "time";
+			// }
+			// elseif (Str::contains(($values->Type), 'text')) {
+				// $type = "textarea";
+			// }
+			// else{
+				// $type = "text";
+			// }
 		}
 		
         $replace = array_merge($this->buildReplacements(), [
@@ -134,7 +165,7 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
 
         $this->buildLayout();
 
-        foreach (['view', 'index', 'modals'] as $view) {
+        foreach (['view', 'index', 'create', 'update'] as $view) {
             $viewTemplate = str_replace(
                 array_keys($replace), array_values($replace), $this->getStub("views/{$view}")
             );
@@ -147,6 +178,8 @@ class LivewireCrudGenerator extends LivewireGeneratorCommand
 
     /**
      * Make the class name from table name.
+     *
+     * @return string
      */
     private function _buildClassName()
     {

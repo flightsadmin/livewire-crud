@@ -116,13 +116,13 @@ class ModelGenerator
     {
         $db = DB::getDatabaseName();
         $sql = <<<SQL
-SELECT TABLE_NAME ref_table, COLUMN_NAME foreign_key, REFERENCED_COLUMN_NAME local_key, '1' ref 
-  FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE 
+SELECT TABLE_NAME ref_table, COLUMN_NAME foreign_key, REFERENCED_COLUMN_NAME local_key, '1' ref
+  FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
   WHERE REFERENCED_TABLE_NAME = '$this->table' AND TABLE_SCHEMA = '$db'
 UNION
-SELECT REFERENCED_TABLE_NAME ref_table, REFERENCED_COLUMN_NAME foreign_key, COLUMN_NAME local_key, '0' ref 
-  FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE 
-  WHERE TABLE_NAME = '$this->table' AND TABLE_SCHEMA = '$db' AND REFERENCED_TABLE_NAME IS NOT NULL 
+SELECT REFERENCED_TABLE_NAME ref_table, REFERENCED_COLUMN_NAME foreign_key, COLUMN_NAME local_key, '0' ref
+  FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+  WHERE TABLE_NAME = '$this->table' AND TABLE_SCHEMA = '$db' AND REFERENCED_TABLE_NAME IS NOT NULL
 
 ORDER BY ref_table ASC
 SQL;
@@ -135,6 +135,6 @@ SQL;
      */
     private function _getTableKeys($table)
     {
-        return DB::select("SHOW KEYS FROM {$table}");
+        return DB::select("SHOW KEYS FROM `{$table}`");
     }
 }

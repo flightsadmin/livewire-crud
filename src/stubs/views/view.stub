@@ -6,23 +6,27 @@
 				<div class="card-header">
 					<div style="display: flex; justify-content: space-between; align-items: center;">
 						<div class="float-left">
-							<h4><i class="bi-house-check-fill text-info"></i>
+							<h4><i class="bi-house-fill text-info"></i>
 							{{modelTitle}} Listing </h4>
+						</div>
+						<div wire:poll.60s>
+							<code><h5>{{ now()->format('H:i:s') }} UTC</h5></code>
 						</div>
 						@if (session()->has('message'))
 						<div wire:poll.4s class="btn btn-sm btn-success" style="margin-top:0px; margin-bottom:0px;"> {{ session('message') }} </div>
 						@endif
 						<div>
-							<input wire:model.live='keyWord' type="text" class="form-control" name="search" id="search" placeholder="Search {{modelTitle}}s">
+							<input wire:model='keyWord' type="text" class="form-control" name="search" id="search" placeholder="Search {{modelTitle}}s">
 						</div>
-						<div class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#DataModal">
+						<div class="btn btn-sm btn-info" data-toggle="modal" data-target="#createDataModal">
 						<i class="bi-plus-lg"></i>  Add {{modelTitle}}s
 						</div>
 					</div>
 				</div>
 				
 				<div class="card-body">
-						@include('livewire.{{modelNamePluralLowerCase}}.modals')
+						@include('livewire.{{modelNamePluralLowerCase}}.create')
+						@include('livewire.{{modelNamePluralLowerCase}}.update')
 				<div class="table-responsive">
 					<table class="table table-bordered table-sm">
 						<thead class="thead">
@@ -31,28 +35,23 @@
 							</tr>
 						</thead>
 						<tbody>
-							@forelse(${{modelNamePluralLowerCase}} as $row)
+							@foreach(${{modelNamePluralLowerCase}} as $row)
 							<tr>
 								<td>{{ $loop->iteration }}</td> {{tableBody}}								<td width="90">
-									<div class="dropdown">
-										<a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-											Actions
-										</a>
-										<ul class="dropdown-menu">
-											<li><a data-bs-toggle="modal" data-bs-target="#DataModal" class="dropdown-item" wire:click="edit({{$row->id}})"><i class="bi-pencil-square"></i> Edit </a></li>
-											<li><a class="dropdown-item" onclick="confirm('Confirm Delete {{modelTitle}} id {{$row->id}}? \nDeleted {{modelTitle}}s cannot be recovered!')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})"><i class="bi-trash3-fill"></i> Delete </a></li>  
-										</ul>
-									</div>								
+								<div class="btn-group">
+									<button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Actions
+									</button>
+									<div class="dropdown-menu dropdown-menu-right">
+									<a data-toggle="modal" data-target="#updateModal" class="dropdown-item" wire:click="edit({{$row->id}})"><i class="bi-pencil-fill"></i> Edit </a>							 
+									<a class="dropdown-item" onclick="confirm('Confirm Delete {{modelTitle}} id {{$row->id}}? \nDeleted {{modelTitle}}s cannot be recovered!')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})"><i class="bi-trash3-fill"></i> Delete </a>   
+									</div>
+								</div>
 								</td>
-							</tr>
-							@empty
-							<tr>
-								<td class="text-center" colspan="100%">No data Found </td>
-							</tr>
-							@endforelse
+							@endforeach
 						</tbody>
 					</table>						
-					<div class="float-end">{{ ${{modelNamePluralLowerCase}}->links() }}</div>
+					{{ ${{modelNamePluralLowerCase}}->links() }}
 					</div>
 				</div>
 			</div>
