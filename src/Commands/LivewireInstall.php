@@ -42,6 +42,8 @@ class LivewireInstall extends Command
                 'public/js',
                 'public/build',
                 'public/fonts',
+                'postcss.config.js',
+                'tailwind.config.js',
             ];
 
             foreach ($deleteFiles as $deleteFile) {
