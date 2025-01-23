@@ -17,9 +17,9 @@
     ],
     "require": {
         "php": "^7|^8",
-        "laravel/framework": "^6|^7|^8|<9.19",
-        "laravel/ui": "^2|^3|^4",
-        "livewire/livewire": "^2"
+        "laravel/framework": ">=9.19",
+        "laravel/ui": "^4",
+        "livewire/livewire": "^3"
     },
     "require-dev": {},
     "autoload": {
@@ -35,7 +35,6 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-
     },
     "config": {
         "sort-packages": true

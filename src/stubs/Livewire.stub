@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\{{modelName}};
+use Livewire\Attributes\Computed;
 
 class {{modelName}}s extends Component
 {
@@ -12,70 +13,57 @@ class {{modelName}}s extends Component
 
 	protected $paginationTheme = 'bootstrap';
     public $selected_id, $keyWord, {{updatefield}};
-    public $updateMode = false;
 
-    public function render()
-    {
-		$keyWord = '%'.$this->keyWord .'%';
-        return view('livewire.{{modelNamePluralLowerCase}}.view', [
-            '{{modelNamePluralLowerCase}}' => {{modelName}}::latest(){{search}}
-						->paginate(10),
-        ]);
-    }
+    #[Computed]
+	public function filtered{{modelName}}s()
+	{
+		$keyWord = '%' . $this->keyWord . '%';
+		return {{modelName}}::latest()
+			->where(function ($query) use ($keyWord) {
+				$query{{search}};
+			})
+			->paginate(10);
+	}
+
+	public function render()
+	{
+		return view('livewire.{{modelNamePluralLowerCase}}.view', [
+			'{{modelNamePluralLowerCase}}' => $this->filtered{{modelName}}s,
+		]);
+	}
 	
     public function cancel()
     {
-        $this->resetInput();
-        $this->updateMode = false;
-    }
-	
-    private function resetInput()
-    {		{{resetfields}}
+        $this->reset();
     }
 
-    public function store()
+    public function save()
     {
         $this->validate([{{rules}}
         ]);
 
-        {{modelName}}::create([ {{addfields}}
-        ]);
-        
-        $this->resetInput();
-		$this->emit('closeModal');
-		session()->flash('message', '{{modelName}} Successfully created.');
+        Flight::updateOrCreate(
+			['id' => $this->selected_id],
+			[{{addfields}}
+			]
+		);
+
+        $message = $this->selected_id ? '{{modelName}} Successfully updated.' : '{{modelName}} Successfully created.';
+		$this->dispatch('closeModal');
+        $this->reset();
+		session()->flash('message', $message);
     }
 
     public function edit($id)
     {
-        $record = {{modelName}}::findOrFail($id);
-
-        $this->selected_id = $id; {{editfields}}
-		
-        $this->updateMode = true;
-    }
-
-    public function update()
-    {
-        $this->validate([{{rules}}
-        ]);
-
-        if ($this->selected_id) {
-			$record = {{modelName}}::find($this->selected_id);
-            $record->update([ {{addfields}}
-            ]);
-
-            $this->resetInput();
-            $this->updateMode = false;
-			session()->flash('message', '{{modelName}} Successfully updated.');
-        }
+        $this->selected_id = $id;
+		$this->fill({{modelName}}::findOrFail($id)->toArray());
     }
 
     public function destroy($id)
     {
         if ($id) {
-            $record = {{modelName}}::where('id', $id);
-            $record->delete();
+            {{modelName}}::where('id', $id)->delete();
         }
     }
 }

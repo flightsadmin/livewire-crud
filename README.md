@@ -25,9 +25,9 @@ php artisan crud:install
 ```
 **This command will perfom below actions:
 
-    * Compile css/js based on `bootstrap and fontawesome/free`.
-    * Run `npm install && run dev`
-    * Flush *node_modules* files from you folder.
+    * Compile css/js based on `bootstrap and bootstrap-icons`.
+    * Run `npm install && run build`
+    * Flush *node_modules* files from your folder.
 
 If you choose to scaffold authentication this command will run `php artisan ui:auth`
 to generate Auth scaffolds using `laravel/ui` package. You can skip this step if your app has authentication already.
