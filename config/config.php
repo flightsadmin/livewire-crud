@@ -46,4 +46,8 @@ return [
         'namespace' => 'App\Http\Controllers',
     ],
 
+    'livewire' => [
+        'namespace' => 'App\Livewire',
+    ],
+
 ];

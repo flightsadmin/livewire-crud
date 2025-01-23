@@ -64,12 +64,12 @@ abstract class LivewireGeneratorCommand extends Command
      * Controller Namespace.
      * @var string
      */
-    protected $controllerNamespace = 'App\Http\Controllers';  
-	/**
+    protected $controllerNamespace = 'App\Http\Controllers';
+    /**
      * Controller Namespace.
      * @var string
      */
-    protected $livewireNamespace = 'App\Http\Livewire';
+    protected $livewireNamespace = 'App\Livewire';
 
     /**
      * Application Layout
@@ -180,14 +180,14 @@ abstract class LivewireGeneratorCommand extends Command
      */
     protected function _getMigrationPath($name)
     {
-        return base_path("database/migrations/". date('Y-m-d_His') ."_create_". Str::lower(Str::plural($name)) ."_table.php");
-    } 
+        return base_path("database/migrations/" . date('Y-m-d_His') . "_create_" . Str::lower(Str::plural($name)) . "_table.php");
+    }
     protected function _getFactoryPath($name)
     {
         return base_path("database/factories/{$name}Factory.php");
-    } 
+    }
 
-	/**
+    /**
      * @param $name
      * @return string
      */
@@ -274,7 +274,9 @@ abstract class LivewireGeneratorCommand extends Command
         ]);
 
         return str_replace(
-            array_keys($replace), array_values($replace), $this->getStub("views/{$type}")
+            array_keys($replace),
+            array_values($replace),
+            $this->getStub("views/{$type}")
         );
     }
 
@@ -358,7 +360,7 @@ abstract class LivewireGeneratorCommand extends Command
         return array_filter($columns, function ($value) use ($unwanted) {
             return !in_array($value, $unwanted);
         });
-    }   
+    }
 
     /**
      * Make model attributes/replacements.
@@ -421,52 +423,52 @@ abstract class LivewireGeneratorCommand extends Command
 
             // CSV format
             return implode(', ', $filterColumns);
-        };      
+        };
 
-		$resetfields = function () {
+        $resetfields = function () {
 
             /** @var array $filterColumns Exclude the unwanted columns */
             $filterColumns = $this->getFilteredColumns();
 
             // Add quotes to the unwanted columns for fillable
             array_walk($filterColumns, function (&$value) {
-                $value = "\n\t\t\$this->". $value . " = null";
+                $value = "\n\t\t\$this->" . $value . " = null";
                 $value .= ";";
             });
 
             // CSV format
             return implode('', $filterColumns);
-        };		
-		
-		$addfields = function () {
+        };
+
+        $addfields = function () {
 
             /** @var array $filterColumns Exclude the unwanted columns */
             $filterColumns = $this->getFilteredColumns();
 
             // Add quotes to the unwanted columns for fillable
             array_walk($filterColumns, function (&$value) {
-                $value = "\n\t\t\t'" . $value . "' => \$this-> ". $value;
+                $value = "\n\t\t\t'" . $value . "' => \$this-> " . $value;
             });
 
             // CSV format
             return implode(',', $filterColumns);
-        };		
-		
-		$keyWord = function () {
+        };
+
+        $keyWord = function () {
 
             /** @var array $filterColumns Exclude the unwanted columns */
             $filterColumns = $this->getFilteredColumns();
 
             // Add quotes to the unwanted columns for fillable
             array_walk($filterColumns, function (&$value) {
-				$value = "\n\t\t\t\t\t\t->orWhere('" . $value . "', 'LIKE', \$keyWord)";
+                $value = "\n\t\t\t\t\t\t->orWhere('" . $value . "', 'LIKE', \$keyWord)";
             });
 
             // CSV format
             return implode('', $filterColumns);
-        };	
+        };
 
-		$factoryfields = function () {
+        $factoryfields = function () {
 
             /** @var array $filterColumns Exclude the unwanted columns */
             $filterColumns = $this->getFilteredColumns();
@@ -479,15 +481,15 @@ abstract class LivewireGeneratorCommand extends Command
             // CSV format
             return implode('', $filterColumns);
         };
-		
-		$editfields = function () {
+
+        $editfields = function () {
 
             /** @var array $filterColumns Exclude the unwanted columns */
             $filterColumns = $this->getFilteredColumns();
 
             // Add quotes to the unwanted columns for fillable
             array_walk($filterColumns, function (&$value) {
-                $value = "\n\t\t\$this->" . $value . " = \$record-> ". $value .";";
+                $value = "\n\t\t\$this->" . $value . " = \$record-> " . $value . ";";
             });
 
             // CSV format
