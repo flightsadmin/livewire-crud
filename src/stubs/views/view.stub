@@ -15,7 +15,7 @@
 						<div>
 							<input wire:model.live='keyWord' type="text" class="form-control" name="search" id="search" placeholder="Search {{modelTitle}}s">
 						</div>
-						<div class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#createDataModal">
+						<div class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#DataModal">
 						<i class="bi-plus-lg"></i>  Add {{modelTitle}}s
 						</div>
 					</div>
@@ -39,7 +39,7 @@
 											Actions
 										</a>
 										<ul class="dropdown-menu">
-											<li><a data-bs-toggle="modal" data-bs-target="#updateDataModal" class="dropdown-item" wire:click="edit({{$row->id}})"><i class="bi-pencil-square"></i> Edit </a></li>
+											<li><a data-bs-toggle="modal" data-bs-target="#DataModal" class="dropdown-item" wire:click="edit({{$row->id}})"><i class="bi-pencil-square"></i> Edit </a></li>
 											<li><a class="dropdown-item" onclick="confirm('Confirm Delete {{modelTitle}} id {{$row->id}}? \nDeleted {{modelTitle}}s cannot be recovered!')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})"><i class="bi-trash3-fill"></i> Delete </a></li>  
 										</ul>
 									</div>								

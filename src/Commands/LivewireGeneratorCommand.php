@@ -447,7 +447,7 @@ abstract class LivewireGeneratorCommand extends Command
 
             // Add quotes to the unwanted columns for fillable
             array_walk($filterColumns, function (&$value) {
-                $value = "\n\t\t\t'" . $value . "' => \$this-> " . $value;
+                $value = "\n\t\t\t\t'" . $value . "' => \$this-> " . $value;
             });
 
             // CSV format
@@ -475,7 +475,7 @@ abstract class LivewireGeneratorCommand extends Command
 
             // Add quotes to the unwanted columns for fillable */
             array_walk($filterColumns, function (&$value) {
-                $value = "\n\t\t\t'" . $value . "' => \$this->faker->name,";
+                $value = "\n\t\t\t'" . $value . "' => fake()->name(),";
             });
 
             // CSV format
